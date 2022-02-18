@@ -8,10 +8,19 @@ import scala.collection.mutable.LinkedHashMap
 
 object Solution {
 
+  def getAllCharList(stringList: Iterator[String]): List[List[(List[Char], Int)]] = {
+    stringList.map(_.toList.grouped(3).zipWithIndex.toList)
+                            .toList
+  }
+
   def numberIndexMap(fileName: String): Map[List[Char], Int] = {
-    var allCharList = Source.fromResource(fileName).getLines()
+    var allCharList = getAllCharList(Source.fromResource(fileName).getLines())
+    println(allCharList)
+    /*
+    Source.fromResource(fileName).getLines()
                             .map(_.toCharArray().toList.grouped(3).zipWithIndex.toList)
                             .toList
+    */
 
     return allCharList.flatten    // remove one List wrap
                       .groupBy(_._2)  // group by index in the tuple
